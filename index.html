@@ -243,9 +243,11 @@
     box-shadow:0 18px 40px rgba(0,0,0,.35);
   }
   .nav-chevron{
-    flex:0 0 auto;display:grid;place-items:center;width:24px;
-    color:rgba(255,255,255,.4);font-size:16px;font-weight:700;pointer-events:none;
+    flex:0 0 auto;display:grid;place-items:center;width:36px;height:48px;
+    color:rgba(255,255,255,.5);font-size:20px;font-weight:700;cursor:pointer;
+    border-radius:12px;transition:all .2s;
   }
+  .nav-chevron:active{background:rgba(255,255,255,.1);color:white}
   .tab{
     flex:0 0 auto;text-align:center;padding:10px 10px;border-radius:14px;
     font-size:11px;font-weight:700;cursor:pointer;
@@ -287,9 +289,9 @@
 </div>
 
 <nav class="bottom-nav">
-  <div class="nav-chevron">‹</div>
+  <div class="nav-chevron" onclick="document.getElementById('bottomNav').scrollBy({left:-120,behavior:'smooth'})">‹</div>
   <div id="bottomNav" style="display:flex;gap:4px;overflow-x:auto;flex:1;-ms-overflow-style:none;scrollbar-width:none"></div>
-  <div class="nav-chevron">›</div>
+  <div class="nav-chevron" onclick="document.getElementById('bottomNav').scrollBy({left:120,behavior:'smooth'})">›</div>
 </nav>
 
 <script>
