@@ -296,6 +296,7 @@
   <div class="safe">
     <div class="status">
       <div>🇮🇪 🇲🇽</div>
+      <div id="viewCounter" style="opacity:.6;font-size:11px">—</div>
       <div>World Cup 2026 Guide</div>
     </div>
   </div>
@@ -988,6 +989,11 @@ function setupSearch(){
 
 render();
 setupSearch();
+
+fetch('https://mex-counter.victordelrosal.workers.dev')
+  .then(r=>r.json())
+  .then(d=>{document.getElementById('viewCounter').textContent=d.views.toLocaleString()+' views'})
+  .catch(()=>{});
 </script>
 </body>
 </html>
