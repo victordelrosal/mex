@@ -296,7 +296,6 @@
   <div class="safe">
     <div class="status">
       <div>🇮🇪 🇲🇽</div>
-      <div id="viewCounter" style="opacity:.6;font-size:11px">—</div>
       <div>World Cup 2026 Guide</div>
     </div>
   </div>
@@ -753,6 +752,7 @@ const GUIDE_DATA = {
     changelog: {
       title: "Changelog",
       hint: "",
+      showViews: true,
       logEntries: [
         {date:"2026-03-16", time:"14:42", title:"Fact-check corrections", body:"Independent review panel verified 39 claims. Fixed 4 errors: passport validity rule (Mexico requires validity for duration of stay, not 6 months; 6-month rule is eGate-specific only), LHR-MEX flight time corrected from 11h to 12h, removed defunct EU ODR platform reference (shut down July 2025, replaced with CCPC/ECC-Net), stadium capacity updated from 83,000 to 87,500 post-renovation."},
         {date:"2026-03-16", time:"14:30", title:"Hero image added", body:"AI-generated panoramic image of Estadio Azteca at sunset with Irish and Mexican fans added to Home screen. Compressed to 258KB JPEG. Social preview (OG/Twitter Card) meta tags added with 1200x630 formatted image for WhatsApp, iMessage, Slack, LinkedIn sharing."},
@@ -914,6 +914,12 @@ function renderPage(pageId, content){
     section.appendChild(sources);
   }
 
+  if (content.showViews){
+    const vc = makeEl('div','card',
+      `<div style="display:flex;align-items:center;gap:10px"><div style="font-size:24px;font-weight:800;letter-spacing:-.02em" id="viewCount">—</div><div style="font-size:13px;color:var(--muted)">page views since launch</div></div>`);
+    section.appendChild(vc);
+  }
+
   if (content.logEntries){
     const wrap = makeEl('div','list');
     content.logEntries.forEach(e => {
@@ -992,7 +998,7 @@ setupSearch();
 
 fetch('https://mex-counter.victordelrosal.workers.dev')
   .then(r=>r.json())
-  .then(d=>{document.getElementById('viewCounter').textContent=d.views.toLocaleString()+' views'})
+  .then(d=>{const el=document.getElementById('viewCount');if(el)el.textContent=d.views.toLocaleString()})
   .catch(()=>{});
 </script>
 </body>
