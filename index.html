@@ -21,7 +21,7 @@
     --radius:24px;
     --radius-sm:16px;
   }
-  *{box-sizing:border-box}
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html,body{margin:0;background:linear-gradient(180deg,#070b16 0%,#0d1530 100%);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif}
   a{color:#9ec2ff;text-decoration:none}
   body{min-height:100vh}
@@ -42,9 +42,7 @@
     display:flex;justify-content:space-between;align-items:center;
     color:#dce7ff;font-weight:600;font-size:13px;opacity:.9;padding:6px 6px 12px;
   }
-  .hero{
-    padding:8px 10px 16px;
-  }
+  .hero{padding:8px 10px 16px}
   .glass{
     background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.03));
     border:1px solid rgba(255,255,255,.1);
@@ -70,9 +68,7 @@
     background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.09);
     font-size:12px;color:#dbe4ff
   }
-  h1{
-    margin:14px 0 10px;font-size:32px;line-height:1.02;letter-spacing:-.03em
-  }
+  h1{margin:14px 0 10px;font-size:32px;line-height:1.02;letter-spacing:-.03em}
   .sub{color:var(--muted);font-size:14px;line-height:1.45}
   .hero-grid{
     display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px
@@ -86,8 +82,9 @@
   .search{
     margin-top:14px;padding:12px 14px;border-radius:16px;
     width:100%;border:1px solid rgba(255,255,255,.09);
-    background:rgba(255,255,255,.06);color:var(--text);font-size:15px
+    background:rgba(255,255,255,.06);color:var(--text);font-size:15px;outline:none;
   }
+  .search:focus{border-color:rgba(114,168,255,.4);background:rgba(255,255,255,.08)}
   .search::placeholder{color:#b8c5e3}
   .section{padding:0 16px 16px}
   .section-title{
@@ -96,12 +93,23 @@
   }
   .section-title h2{margin:0;font-size:20px;letter-spacing:-.02em}
   .section-title .hint{font-size:12px;color:var(--muted)}
+
+  /* Collapsible cards */
   .card{
     padding:16px;border-radius:22px;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.025));
     border:1px solid rgba(255,255,255,.08);margin-bottom:12px;
   }
-  .card h3{margin:0 0 8px;font-size:16px}
+  .card h3{margin:0 0 0;font-size:16px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;user-select:none}
+  .card h3 .chevron{
+    font-size:14px;color:var(--muted);transition:transform .25s ease;flex:0 0 auto;
+    width:24px;height:24px;display:grid;place-items:center;border-radius:999px;
+    background:rgba(255,255,255,.06);
+  }
+  .card.collapsed h3 .chevron{transform:rotate(-90deg)}
+  .card .card-body{color:var(--muted);line-height:1.5;font-size:14px;margin-top:10px;overflow:hidden;transition:max-height .3s ease, opacity .25s ease}
+  .card.collapsed .card-body{max-height:0 !important;opacity:0;margin-top:0}
   .card p{margin:0;color:var(--muted);line-height:1.5;font-size:14px}
+
   .list{display:grid;gap:10px;margin-top:12px}
   .pill-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
   .pill{padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);font-size:12px;color:#dbe4ff}
@@ -144,19 +152,78 @@
     font-size:12px;line-height:1.5;padding:12px;border-radius:14px;
     background:#0a1020;border:1px solid rgba(255,255,255,.08);color:#d5e3ff;margin-top:10px
   }
+
+  /* Action buttons */
+  .action-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+  .action-btn{
+    padding:14px 12px;border-radius:18px;border:1px solid rgba(255,255,255,.1);
+    background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.03));
+    color:var(--text);font-size:13px;font-weight:600;cursor:pointer;
+    display:flex;align-items:center;gap:8px;transition:all .2s;text-align:left;
+  }
+  .action-btn:hover{background:rgba(255,255,255,.1);border-color:rgba(114,168,255,.3)}
+  .action-btn:active{transform:scale(.97)}
+  .action-btn .icon{font-size:18px}
+
+  /* Phrase table */
+  .phrase-grid{display:grid;gap:2px;margin-top:12px}
+  .phrase-row{
+    display:grid;grid-template-columns:1fr 1fr;gap:12px;
+    padding:12px 14px;border-radius:14px;
+    background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.05);
+  }
+  .phrase-row .es{font-weight:700;font-size:14px}
+  .phrase-row .en{font-size:13px;color:var(--muted)}
+
+  /* Neighbourhood pills */
+  .hood-grid{display:grid;gap:10px;margin-top:12px}
+  .hood-card{
+    padding:14px;border-radius:18px;
+    background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.025));
+    border:1px solid rgba(255,255,255,.08);
+  }
+  .hood-card .hood-name{font-weight:700;font-size:15px;margin-bottom:4px}
+  .hood-card .hood-vibe{font-size:12px;color:var(--blue)}
+  .hood-card .hood-desc{font-size:13px;color:var(--muted);line-height:1.45;margin-top:6px}
+
+  /* Food item */
+  .food-grid{display:grid;gap:10px;margin-top:12px}
+  .food-item{
+    padding:14px;border-radius:18px;
+    background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);
+    display:flex;gap:12px;align-items:flex-start;
+  }
+  .food-emoji{font-size:24px;flex:0 0 auto}
+  .food-info .food-name{font-weight:700;font-size:14px}
+  .food-info .food-desc{font-size:13px;color:var(--muted);line-height:1.4;margin-top:3px}
+
+  /* Contact card */
+  .contact-card{
+    padding:14px;border-radius:18px;
+    background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);
+    margin-bottom:10px;
+  }
+  .contact-card .contact-name{font-size:13px;color:var(--muted)}
+  .contact-card .contact-value{font-size:18px;font-weight:700;margin-top:4px;letter-spacing:-.01em}
+  .contact-card .contact-note{font-size:12px;color:#a0b0d0;margin-top:4px;line-height:1.4}
+
   .bottom-nav{
     position:fixed;left:50%;transform:translateX(-50%);
     bottom:12px;width:min(398px,calc(100vw - 24px));
-    padding:10px 12px;border-radius:24px;
-    background:rgba(16,24,46,.9);
+    padding:8px 6px;border-radius:24px;
+    background:rgba(16,24,46,.92);
     border:1px solid rgba(255,255,255,.1);
     backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-    display:flex;justify-content:space-between;gap:8px;z-index:20;
-    box-shadow:0 18px 40px rgba(0,0,0,.35)
+    display:flex;justify-content:space-between;gap:4px;z-index:20;
+    box-shadow:0 18px 40px rgba(0,0,0,.35);
+    overflow-x:auto;
   }
   .tab{
-    flex:1;text-align:center;padding:10px 6px;border-radius:16px;color:#c8d6f5;font-size:12px;font-weight:700;cursor:pointer;
+    flex:0 0 auto;text-align:center;padding:10px 10px;border-radius:14px;color:#c8d6f5;font-size:11px;font-weight:700;cursor:pointer;
+    display:flex;flex-direction:column;align-items:center;gap:3px;min-width:48px;
+    transition:all .2s;
   }
+  .tab .tab-icon{font-size:16px}
   .tab.active{background:rgba(114,168,255,.18);color:white}
   .page{display:none}
   .page.active{display:block}
@@ -165,14 +232,18 @@
     color:#90a0c6;font-size:12px;line-height:1.5;padding:10px 18px 110px
   }
   .hidden{display:none !important}
+
+  /* Scrollbar hide for nav */
+  .bottom-nav::-webkit-scrollbar{display:none}
+  .bottom-nav{-ms-overflow-style:none;scrollbar-width:none}
 </style>
 </head>
 <body>
 <div class="app-shell">
   <div class="safe">
     <div class="status">
-      <div>12:00</div>
-      <div>Irish Fans in CDMX</div>
+      <div>🇮🇪 🇲🇽</div>
+      <div>World Cup 2026 Guide</div>
     </div>
   </div>
 
@@ -180,21 +251,20 @@
     <div class="glass hero-card">
       <div class="eyebrow">🇮🇪 Irish fans · 🇲🇽 Mexico City · ⚽ World Cup 2026</div>
       <h1>Mexico City match guide</h1>
-      <div class="sub">A single-file, app-style guide built for Irish supporters heading to Mexico City. It is based on the latest official information I could verify on <strong>16 March 2026</strong>, plus practical city advice for first-time visitors.</div>
+      <div class="sub">The practical guide for Irish supporters heading to CDMX. Verified <strong>16 March 2026</strong>.</div>
       <div class="hero-grid">
-        <div class="mini"><div class="label">Tournament opens</div><div class="value">11 Jun 2026</div></div>
-        <div class="mini"><div class="label">City matches</div><div class="value">5 matches</div></div>
-        <div class="mini"><div class="label">Airport</div><div class="value">AICM (MEX)</div></div>
+        <div class="mini"><div class="label">Opens</div><div class="value">11 Jun</div></div>
+        <div class="mini"><div class="label">Matches</div><div class="value">5 games</div></div>
+        <div class="mini"><div class="label">Airport</div><div class="value">MEX</div></div>
       </div>
-      <input id="searchInput" class="search" type="search" placeholder="Search the guide: ticket, airport, Roma, embassy…" />
-      <div class="hero-note">Designed to be easy to update: all live facts sit in one data object near the top of this HTML file.</div>
+      <input id="searchInput" class="search" type="search" placeholder="Search: tickets, Roma, embassy, tacos…" />
     </div>
   </div>
 
   <main id="pages"></main>
 
   <div class="footer">
-    Built as a planning guide, not as legal or immigration advice. Where an official policy has not yet been published, this guide says so explicitly and flags it for re-checking.
+    Planning guide only, not legal or immigration advice. Where official policy is unpublished, this guide flags it for re-checking.
   </div>
 </div>
 
@@ -203,51 +273,60 @@
 <script>
 const GUIDE_DATA = {
   meta: {
-    title: "Irish Fans in CDMX — World Cup 2026 Guide",
     verifiedDate: "2026-03-16",
-    version: "1.0",
-    ownerNote: "To update this file later, edit GUIDE_DATA only. You should not need to touch the HTML structure.",
-    audience: "Irish football supporters travelling to Mexico City, many of them first-time visitors to Mexico."
+    version: "2.0"
   },
 
   tabs: [
-    { id: "home", label: "Home" },
-    { id: "match", label: "Match" },
-    { id: "travel", label: "Travel" },
-    { id: "city", label: "City" },
-    { id: "safety", label: "Safety" },
-    { id: "update", label: "Update" }
+    { id: "home", label: "Home", icon: "🏠" },
+    { id: "match", label: "Match", icon: "⚽" },
+    { id: "travel", label: "Travel", icon: "✈️" },
+    { id: "stay", label: "Stay", icon: "🏨" },
+    { id: "eat", label: "Eat", icon: "🌮" },
+    { id: "explore", label: "Explore", icon: "🗿" },
+    { id: "safety", label: "Safety", icon: "🛡️" },
+    { id: "spanish", label: "Spanish", icon: "🗣️" },
+    { id: "sources", label: "Sources", icon: "📋" }
   ],
 
   pages: {
     home: {
-      title: "What matters most",
-      hint: "Fast brief",
+      title: "Quick brief",
+      hint: "Start here",
       cards: [
         {
-          title: "What is confirmed right now",
-          body: "FIFA confirms that Mexico City hosts five World Cup 2026 matches, including the opening match on 11 June 2026. Mexico City’s government also says the capital will host five matches and has announced citywide transport, lighting and public-space upgrades around the tournament."
+          title: "What's confirmed",
+          body: "Mexico City hosts 5 World Cup matches including the opening game on 11 June 2026. The city has announced transport upgrades, lighting improvements and public-space works around the tournament.",
+          collapsed: false
         },
         {
-          title: "Venue naming note",
-          body: "The stadium is still commonly known as Estadio Azteca. FIFA often labels it “Mexico City Stadium” for tournament communications. Mexico City government has also used “Estadio Ciudad de México” and “Estadio Banorte” during the renovation period. For travellers, assume all four labels may appear in different official channels and cross-check the address each time."
+          title: "Stadium naming",
+          body: "Still commonly called Estadio Azteca. FIFA uses \"Mexico City Stadium\". You may also see \"Estadio Ciudad de Mexico\" or \"Estadio Banorte\". All refer to the same venue. Cross-check the address each time.",
+          collapsed: true
         },
         {
-          title: "What is not fully published yet",
-          body: "Detailed match-specific ingress maps, fan-zone operating rules, tournament-day transport plans, and many ticket-delivery / app procedures are still subject to change. This guide clearly flags those items as “re-check closer to travel.”"
+          title: "Still pending",
+          body: "Detailed ingress maps, fan-zone rules, tournament-day transport plans, and ticket-delivery procedures may still change. This guide flags those items for re-checking closer to travel.",
+          collapsed: true
         }
       ],
-      checklistTitle: "First actions for an Irish fan",
+      checklistTitle: "First 5 actions",
       checklist: [
-        "Check that your passport has at least 6 months’ validity. Ireland’s DFA says Irish passports should have a minimum validity of 6 months for Mexico.",
-        "Register with the Irish DFA citizen registration system before you travel.",
-        "Book a hotel in Roma, Condesa, Polanco or Centro Histórico before demand spikes around confirmed fixtures.",
-        "Plan to use official airport transport on arrival: authorised airport taxis, app-based rides, or Metrobus.",
-        "Save emergency contacts before you travel: 911, LOCATEL (55 5658 1111, press 6 for English), and the Irish Embassy in Mexico City."
+        "Confirm passport has 6+ months validity (Irish DFA requirement for Mexico).",
+        "Register with Irish DFA citizen registration system.",
+        "Book accommodation in Roma, Condesa, Polanco or Centro before demand spikes.",
+        "Use only official airport transport on arrival.",
+        "Save emergency numbers: 911, LOCATEL (55 5658 1111, press 6 for English), Irish Embassy."
+      ],
+      actions: [
+        {icon:"🎫", label:"FIFA Tickets", url:"https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/tickets"},
+        {icon:"📋", label:"DFA Register", url:"https://citizensregistration.dfa.ie/"},
+        {icon:"🏟️", label:"Match Schedule", url:"https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/match-centre"},
+        {icon:"🇮🇪", label:"DFA Mexico Advice", url:"https://www.ireland.ie/en/dfa/overseas-travel/advice/mexico/"}
       ],
       callout: {
         title: "Best base for most fans",
-        body: "For most Irish supporters, Roma or Condesa is the sweet spot: walkable, lively, packed with food, and easier socially than staying right by the stadium. Polanco suits higher budgets; Centro suits history-first trips."
+        body: "Roma or Condesa: walkable, social, food-heavy. Polanco for higher budgets. Centro for history."
       }
     },
 
@@ -256,228 +335,281 @@ const GUIDE_DATA = {
       hint: "FIFA + CDMX",
       cards: [
         {
-          title: "Confirmed World Cup facts",
-          body: "FIFA says Mexico City hosts five matches and the tournament’s opening game takes place there on Thursday 11 June 2026. Mexico City’s government says the capital is the only city in the world to host a World Cup opening match for the third time."
+          title: "Mexico City fixtures",
+          body: "Opening match 11 June, then 17 June, 24 June, 30 June and 5 July. Exact team pathways outside host-team fixtures can still shift. Re-check before buying flights.",
+          collapsed: false
         },
         {
-          title: "Known Mexico City fixtures",
-          body: "Official FIFA hospitality pages list the opening match on 11 June 2026 in Mexico City, then additional Mexico City matches on 17 June, 24 June, 30 June and 5 July 2026. Exact team pathways outside already-assigned host-team fixtures can still shift across official tournament communications, so re-check the final fixture page before buying flights."
+          title: "Stadium works",
+          body: "Reopening planned for 28 March 2026. Infrastructure investment exceeds MXN 6 billion. Capacity approx. 87,000.",
+          collapsed: true
         },
         {
-          title: "Stadium reopening / works",
-          body: "Mexico City’s government said in November 2025 that the stadium’s reopening was planned for 28 March 2026 and that wider infrastructure investment around the tournament exceeded MXN 6 billion, with separate stadium renovation investment also announced."
+          title: "Tickets",
+          body: "FIFA's official ticketing programme runs in phases. Hospitality sold by On Location (FIFA's official provider). Never buy from unofficial sellers.",
+          collapsed: true
+        },
+        {
+          title: "Fan festivals",
+          body: "FIFA Fan Festival confirmed for the Zocalo. Mexico City also plans 16 football festivals, one per borough.",
+          collapsed: true
         }
       ],
-      checklistTitle: "Matchday rules of thumb",
+      checklistTitle: "Matchday rules",
       checklist: [
-        "Expect layered security and bag screening even if final stadium rules are updated later.",
-        "Aim to arrive early rather than relying on last-minute road access; traffic in southern Mexico City can be brutal.",
-        "Do not buy from unofficial ticket sellers. Use FIFA’s official ticket route and official hospitality channels only.",
-        "Assume that digital ticketing, identity checks, and app-based delivery rules may evolve. Re-check FIFA’s ticket page close to your travel date.",
-        "Carry a portable charger on matchday."
+        "Arrive early. Traffic in southern CDMX is brutal.",
+        "Expect layered security and bag screening.",
+        "Only buy tickets through official FIFA channels.",
+        "Digital ticketing rules may evolve. Re-check close to travel.",
+        "Carry a portable charger."
       ],
-      extras: [
-        {label:"Ticketing", text:"FIFA’s official ticketing programme is live in phases; hospitality is sold by On Location as FIFA’s official hospitality provider."},
-        {label:"Fan festivals", text:"Mexico City government has announced a FIFA Fan Festival in the Zócalo plus 16 football festivals, one in each borough."},
-        {label:"What to re-check", text:"Final ingress gates, prohibited-items list, bag policy, and fan-zone maps."}
+      actions: [
+        {icon:"🎫", label:"Buy Tickets", url:"https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/tickets"},
+        {icon:"🏟️", label:"Venue Info", url:"https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/host-cities/mexico-city"}
       ]
     },
 
     travel: {
-      title: "Entry, flights & getting in",
-      hint: "Ireland + airport",
+      title: "Getting there",
+      hint: "Flights + airport",
       cards: [
         {
           title: "Entry for Irish citizens",
-          body: "Ireland’s DFA says Irish citizens do not need a visa to enter Mexico for tourism. A valid passport is required and should have a minimum validity of 6 months. Irish passport cards cannot be used. Mexico can grant stays of up to 180 days, but the final number of days is at the discretion of immigration authorities."
+          body: "No visa required for tourism. Valid passport with 6+ months validity needed. Irish passport cards cannot be used. Mexico can grant stays up to 180 days at immigration's discretion.",
+          collapsed: false
+        },
+        {
+          title: "Flights from Ireland",
+          body: "No direct flights. Best routes: Dublin to London Heathrow, then direct to MEX (approx. 11h). Also via Madrid, Amsterdam, Paris or Frankfurt. Budget approx. €700-1,200 return depending on timing.",
+          collapsed: false
         },
         {
           title: "Airport eGates",
-          body: "Ireland’s DFA says Irish citizens are eligible to use Mexico’s airport eGates for tourism at Mexico City airport. The UK’s FCDO also says tourists using e-gates must keep the printed ticket / proof of entry and can download digital proof of entry from Mexico’s immigration portal."
+          body: "Irish citizens are eligible for Mexico's airport eGates. Keep the printed ticket or download digital proof from Mexico's immigration portal.",
+          collapsed: true
         },
         {
-          title: "What border officers may ask for",
-          body: "Official travel advice says you may be asked for proof of onward travel, accommodation details, and proof you can fund your stay. Keep hotel confirmations and your return flight handy."
+          title: "What border officers may ask",
+          body: "Proof of onward travel, accommodation details, proof you can fund your stay. Keep hotel confirmations and return flight details handy.",
+          collapsed: true
         }
       ],
       route: {
-        from: "Ireland / UK",
-        mid: "via London or European hub",
-        to: "Mexico City (AICM / MEX)"
+        from: "Dublin",
+        mid: "via LHR / MAD / AMS",
+        to: "Mexico City (MEX)"
       },
-      checklistTitle: "AICM arrival plan",
+      checklistTitle: "Airport arrival plan",
       checklist: [
-        "If tired after landing, use an authorised airport taxi or a trusted app ride instead of improvising.",
-        "AICM’s official site says Metrobus connects the airport with downtown Mexico City; boarding is at Terminal 1 Gate 7 and Terminal 2 Gate 2.",
-        "AICM says Metrobus runs daily, with service from 04:30 to 24:00 Monday–Saturday and 05:00 to 24:00 Sundays and holidays.",
-        "If using airport taxis, buy through authorised providers only.",
-        "Keep your passport stamp or eGate proof safe for departure."
+        "Use authorised airport taxi or app-based ride. Do not improvise.",
+        "Metrobus connects airport to downtown: Terminal 1 Gate 7, Terminal 2 Gate 2.",
+        "Metrobus runs 04:30-00:00 Mon-Sat, 05:00-00:00 Sun/holidays.",
+        "Keep passport stamp or eGate proof safe for departure."
       ],
       callout: {
-        title: "Smart airport strategy",
-        body: "For most first-time visitors with luggage, the easiest move is: land → immigration → cashless ride or authorised taxi → check in → do not attempt the Metro on your first hour in the city unless you already know the system."
+        title: "First-timer strategy",
+        body: "Land, clear immigration, grab a cashless ride or authorised taxi, check in. Do not attempt the Metro with luggage on your first hour in the city."
       }
     },
 
-    city: {
-      title: "Where to stay, move, eat & enjoy",
-      hint: "Practical city guide",
+    stay: {
+      title: "Where to stay",
+      hint: "Neighbourhoods",
       cards: [
         {
-          title: "Where to stay",
-          body: "Roma and Condesa are the easiest all-round bases for many visitors: tree-lined, social, food-heavy and walkable. Polanco is more polished and expensive, with strong hotels and museums. Centro Histórico is unbeatable for monuments, museums and atmosphere, but some visitors prefer not to base every late night there."
+          title: "Choosing your base",
+          body: "Your neighbourhood choice shapes your whole trip. All four main tourist areas are safe for visitors who exercise normal city awareness.",
+          collapsed: false
         },
         {
-          title: "Getting around",
-          body: "Mexico City’s official visitor guide says the Metro was designed to be easy to use even for people with limited Spanish, and that public transport often beats sitting in traffic. The same official guide notes many international visitors prefer Uber and similar apps because they are cashless and reduce language friction."
+          title: "Altitude warning",
+          body: "CDMX sits at 2,240m. If you fly in and drink heavily on day one, you'll feel it. Go easier than you think on your first evening.",
+          collapsed: true
         },
         {
-          title: "Altitude is real",
-          body: "Mexico City sits at roughly 2,240 metres above sea level. If you fly in and then drink heavily, walk hard and sleep badly, day one can hit harder than expected. Go easier than you think on your first evening."
+          title: "Booking strategy",
+          body: "Book early. Major tournament demand will spike prices. Mix of hotels and Airbnb available in all areas. Hotels offer more security for first-timers.",
+          collapsed: true
         }
       ],
-      neighborhoodCards: [
+      neighborhoods: [
+        {name:"Roma / Condesa", vibe:"Best all-rounder", desc:"Tree-lined streets, excellent restaurants, cafes, bars. Walkable and social. Sweet spot for most fans."},
+        {name:"Polanco", vibe:"Premium & polished", desc:"Upscale hotels, shopping, Museo Soumaya. Higher budget but very comfortable. Good museums."},
+        {name:"Centro Historico", vibe:"History & atmosphere", desc:"Zocalo, Templo Mayor, Bellas Artes. Incredible by day. Choose hotel micro-location carefully for nights."},
+        {name:"Coyoacan", vibe:"Bohemian & artsy", desc:"Frida Kahlo Museum, quieter pace, beautiful plazas. Further from stadium but worth a day visit."}
+      ],
+      actions: [
+        {icon:"🗺️", label:"Roma on Maps", url:"https://maps.apple.com/?q=Roma+Norte+Mexico+City"},
+        {icon:"🗺️", label:"Condesa on Maps", url:"https://maps.apple.com/?q=Condesa+Mexico+City"}
+      ]
+    },
+
+    eat: {
+      title: "Food & drink",
+      hint: "Must-try list",
+      cards: [
         {
-          title: "Roma / Condesa",
-          body: "Best for many fans. Strong café and restaurant density, good atmosphere, easy for socialising, and still practical for rides to major sights."
+          title: "Street food rules",
+          body: "Eat where locals eat. Busy stalls with high turnover are safest. Start cautious, build confidence. Bottled water if in doubt.",
+          collapsed: false
         },
         {
-          title: "Polanco",
-          body: "Best for comfort, premium hotels, shopping and museums. A good fit for travellers who want a smoother, higher-budget base."
+          title: "Where to eat",
+          body: "Roma, Condesa, Centro and Polanco are all excellent for food. Markets like Mercado Roma, Mercado de San Juan and Mercado de Coyoacan are fantastic. Have one taco crawl night and one classic breakfast morning.",
+          collapsed: true
         },
         {
-          title: "Centro Histórico",
-          body: "Best for history, landmarks and dramatic architecture. Great by day and very rewarding, but choose your exact hotel micro-location carefully."
+          title: "Drinking culture",
+          body: "Mexican beer is excellent (try micheladas). Mezcal bars are everywhere in Roma/Condesa. Pulque is traditional and worth trying. Tap water: stick to bottled.",
+          collapsed: true
         }
       ],
-      checklistTitle: "What to eat and how to do it well",
-      checklist: [
-        "Must-try basics: tacos al pastor, suadero tacos, tortas, tamales, chilaquiles, pozole, esquites and fresh fruit with lime and chilli.",
-        "Start street food with busy stalls that turn over food quickly.",
-        "Use bottled or sealed water if you are being cautious.",
-        "Have one taco crawl night and one classic breakfast morning; Mexico City shines in both.",
-        "Use restaurants and taquerías in Roma, Condesa, Centro and Polanco as your core comfort zones."
+      foods: [
+        {emoji:"🌮", name:"Tacos al Pastor", desc:"Spit-roasted pork with pineapple. The king of CDMX street food."},
+        {emoji:"🌮", name:"Tacos de Suadero", desc:"Slow-cooked beef brisket. Rich, tender, unmissable."},
+        {emoji:"🫔", name:"Tamales", desc:"Steamed corn dough with fillings. Perfect breakfast from street vendors."},
+        {emoji:"🥪", name:"Tortas", desc:"Mexican sandwiches. Try a torta de milanesa for the full experience."},
+        {emoji:"🍳", name:"Chilaquiles", desc:"Tortilla chips in salsa with cream and cheese. The hangover cure."},
+        {emoji:"🍲", name:"Pozole", desc:"Hearty hominy soup. Traditional, filling, deeply satisfying."},
+        {emoji:"🌽", name:"Esquites / Elote", desc:"Corn in a cup or on the cob with mayo, chilli, lime. Street classic."},
+        {emoji:"🥑", name:"Guacamole", desc:"Freshly made at your table in many restaurants. Nothing like home."}
+      ]
+    },
+
+    explore: {
+      title: "Things to do",
+      hint: "Beyond football",
+      cards: [
+        {
+          title: "Top sights",
+          body: "Zocalo (main square), Templo Mayor (Aztec ruins), Palacio de Bellas Artes (stunning art deco), Chapultepec Castle and Park, Museo Nacional de Antropologia (world-class), Frida Kahlo Museum in Coyoacan.",
+          collapsed: false
+        },
+        {
+          title: "Day trips",
+          body: "Teotihuacan pyramids: 1 hour from the city, absolutely worth it. Go early to avoid heat. Xochimilco floating gardens: colourful boats, music, food. A unique Mexican experience.",
+          collapsed: false
+        },
+        {
+          title: "Markets",
+          body: "Mercado de la Ciudadela for crafts and souvenirs. Mercado de San Juan for gourmet ingredients. La Lagunilla flea market on Sundays.",
+          collapsed: true
+        },
+        {
+          title: "Nightlife for fans",
+          body: "Roma and Condesa have the best bar scenes. Sports bars along Av. Insurgentes. Garibaldi Square for mariachi (go with a group, leave early). Pulqueria culture is unique to Mexico.",
+          collapsed: true
+        }
       ],
-      extras: [
-        {label:"Good first-timer wins", text:"Zócalo, Templo Mayor, Bellas Artes, Chapultepec, Coyoacán, and if time allows, Teotihuacán."},
-        {label:"Transport heuristic", text:"Walk in your local area, use app rides for mid-distance trips, and use Metro / Metrobus when it clearly saves time."},
-        {label:"Cash", text:"Carry some small cash, but do not walk around with more than you need."}
+      actions: [
+        {icon:"🏛️", label:"Anthropology Museum", url:"https://www.mna.inah.gob.mx/"},
+        {icon:"🏔️", label:"Teotihuacan", url:"https://maps.apple.com/?q=Teotihuacan+Mexico"},
+        {icon:"🎨", label:"Frida Kahlo Museum", url:"https://www.museofridakahlo.org.mx/"},
+        {icon:"🛶", label:"Xochimilco", url:"https://maps.apple.com/?q=Xochimilco+Mexico+City"}
       ]
     },
 
     safety: {
-      title: "Safety, alerts & contacts",
-      hint: "Read this carefully",
+      title: "Safety & contacts",
+      hint: "Read carefully",
       cards: [
         {
           title: "The balanced view",
-          body: "Mexico City is not a place to panic about, but it is a place to take seriously. Irish and UK official travel advice both say crime is a risk to foreign nationals in Mexico, including in major cities. The biggest practical risks for most fans are theft, scams, and making tired transport decisions."
+          body: "CDMX is not a place to panic about, but take it seriously. Biggest risks for fans: theft, scams, and tired transport decisions. Exercise the same awareness you would in any major city.",
+          collapsed: false
         },
         {
-          title: "Protests in Mexico City",
-          body: "The UK’s FCDO notes demonstrations are common in Mexico City and says protests against gentrification have taken place in central and tourist areas since July 2025. Avoid demonstrations and move away if you encounter one."
+          title: "Transport safety",
+          body: "Use Uber or authorised taxis. Avoid unregulated street cabs. At night, always ride home rather than walking unfamiliar areas.",
+          collapsed: true
         },
         {
-          title: "Airport and taxi safety",
-          body: "AICM provides authorised taxi providers. Mexico City’s official visitor guide says unregulated street cabs should be avoided and that app-based rides are widely used by visitors with few complaints."
+          title: "Protests",
+          body: "Demonstrations are common in CDMX. Protests against gentrification have occurred in tourist areas since mid-2025. Avoid them and move away if you encounter one.",
+          collapsed: true
+        },
+        {
+          title: "Tipping & money",
+          body: "Tip 10-15% at restaurants. Small tips for bag packers at supermarkets. Use ATMs in daylight inside malls or shops. Carry some pesos but not large amounts.",
+          collapsed: true
         }
       ],
       checklistTitle: "Street-smart rules",
       checklist: [
-        "Do not flash watches, jewellery or large amounts of cash.",
-        "Use ATMs in daylight inside malls, shops or safer enclosed areas.",
-        "Keep your phone in a front pocket or zipped bag on public transport.",
-        "At night, ride home rather than trying to be heroic on foot in unfamiliar areas.",
-        "If a problem involves police or a document theft, ask for identification and contact LOCATEL / the embassy rather than paying cash on the spot."
+        "Don't flash watches, jewellery or cash.",
+        "Use ATMs inside malls or shops, in daylight.",
+        "Phone in front pocket or zipped bag on public transport.",
+        "Ride home at night. Don't walk unfamiliar areas.",
+        "If stopped by police, ask for ID. Contact LOCATEL or embassy, not cash on the spot."
       ],
       contacts: [
-        { name: "Emergency services in Mexico", value: "911", note: "Ireland’s DFA and Mexico City’s visitor guide both direct visitors to 911 for emergencies." },
-        { name: "LOCATEL tourist / city help line", value: "55 5658 1111", note: "24/7; press 6 for English. Useful for tourist assistance, lost documents, directions and crisis support." },
-        { name: "Irish Embassy in Mexico City", value: "+52 55 5520 5803", note: "Goldsmith #53 Piso 4, Col. Polanco, Chapultepec, Alcaldía Miguel Hidalgo, 11560 CDMX." }
+        { name: "Emergency services", value: "911", note: "Police, fire, ambulance." },
+        { name: "LOCATEL tourist helpline", value: "55 5658 1111", note: "24/7. Press 6 for English. Lost documents, directions, crisis support." },
+        { name: "Irish Embassy in CDMX", value: "+52 55 5520 5803", note: "Goldsmith #53, Piso 4, Col. Polanco, 11560 CDMX." }
       ],
       callout: {
         title: "If your passport is stolen",
-        body: "Report it to Mexican authorities and the Irish Embassy quickly. Keep cloud copies of your passport photo page, travel insurance, and match tickets."
+        body: "Report to Mexican authorities and the Irish Embassy immediately. Keep cloud copies of your passport photo page, insurance, and match tickets before you travel."
       }
     },
 
-    update: {
-      title: "How to keep this app current",
-      hint: "Built for easy maintenance",
+    spanish: {
+      title: "Essential Spanish",
+      hint: "You'll need these",
       cards: [
         {
-          title: "Update cadence",
-          body: "Check the sources below 8–12 weeks before travel, again 2 weeks before travel, and one final time 48 hours before departure. Near tournament dates, ticketing and transport guidance can move quickly."
-        },
-        {
-          title: "Fields most likely to change",
-          body: "Ticket phases, digital ticket rules, fan-zone maps, airport advisories, protest / security notices, stadium naming, match assignment details, stadium bag rules, and city transport plans."
+          title: "Language tips",
+          body: "English is widely spoken in tourist areas, hotels, and restaurants. But even basic Spanish goes a long way. Mexicans are extremely warm to visitors who try. A simple \"gracias\" and smile will open doors.",
+          collapsed: false
         }
       ],
-      codeTemplate: `// QUICK UPDATE CHECKLIST
-GUIDE_DATA.meta.verifiedDate = "YYYY-MM-DD";
+      phrases: [
+        {es:"Hola / Adios", en:"Hello / Goodbye"},
+        {es:"Por favor", en:"Please"},
+        {es:"Gracias", en:"Thank you"},
+        {es:"Si / No", en:"Yes / No"},
+        {es:"Perdon", en:"Excuse me / Sorry"},
+        {es:"No hablo espanol", en:"I don't speak Spanish"},
+        {es:"Habla ingles?", en:"Do you speak English?"},
+        {es:"Cuanto cuesta?", en:"How much does it cost?"},
+        {es:"La cuenta, por favor", en:"The bill, please"},
+        {es:"Donde esta...?", en:"Where is...?"},
+        {es:"El bano", en:"The bathroom"},
+        {es:"Una cerveza, por favor", en:"A beer, please"},
+        {es:"Salud!", en:"Cheers!"},
+        {es:"Necesito ayuda", en:"I need help"},
+        {es:"El estadio", en:"The stadium"},
+        {es:"Que rico!", en:"How delicious!"},
+        {es:"Vamos!", en:"Let's go!"},
+        {es:"Arriba Irlanda!", en:"Up Ireland!"}
+      ]
+    },
 
-// Examples:
-GUIDE_DATA.pages.match.cards[0].body = "...new official match guidance...";
-GUIDE_DATA.pages.travel.cards[1].body = "...new eGate or immigration wording...";
-GUIDE_DATA.pages.safety.contacts[2].value = "...new embassy number if changed...";
-GUIDE_DATA.sources[0].checked = "YYYY-MM-DD";`,
-      sourcesTitle: "Source log used for this build",
-      sources: [
+    sources: {
+      title: "Sources & updates",
+      hint: "Official + high-trust",
+      cards: [
         {
-          name: "FIFA — Mexico City host city / schedule / ticketing",
-          checked: "2026-03-16",
-          desc: "Used for host-city facts, opening-match date, Mexico City match count, official ticketing routes and hospitality warnings.",
-          url: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026"
+          title: "When to re-check",
+          body: "Check sources 8-12 weeks before travel, 2 weeks before, and 48 hours before departure. Near tournament dates, ticketing and transport guidance can change fast.",
+          collapsed: false
         },
         {
-          name: "Ireland DFA — Mexico travel advice",
-          checked: "2026-03-16",
-          desc: "Used for Irish-citizen entry rules, passport validity guidance, visa-free tourism, eGate eligibility, and emergency-number references.",
-          url: "https://www.ireland.ie/en/dfa/overseas-travel/advice/mexico/"
-        },
-        {
-          name: "Ireland DFA — Citizen Registration",
-          checked: "2026-03-16",
-          desc: "Used for advice on why Irish citizens should register trips abroad.",
-          url: "https://citizensregistration.dfa.ie/"
-        },
-        {
-          name: "Ireland DFA — Embassy directory / Mexico",
-          checked: "2026-03-16",
-          desc: "Used for embassy address and main phone details.",
-          url: "https://www.ireland.ie/en/dfa/embassies/"
-        },
-        {
-          name: "AICM (Mexico City airport) — Metrobus",
-          checked: "2026-03-16",
-          desc: "Used for airport Metrobus boarding points and operating times.",
-          url: "https://www.aicm.com.mx/en/passengers/services/service-providers/transportation/metrobus"
-        },
-        {
-          name: "AICM — Authorised taxis",
-          checked: "2026-03-16",
-          desc: "Used to confirm that authorised airport taxi providers exist and should be preferred on arrival.",
-          url: "https://www.aicm.com.mx/en/passengers/services/service-providers/transportation/taxis"
-        },
-        {
-          name: "Mexico City government — World Cup 2026 city updates",
-          checked: "2026-03-16",
-          desc: "Used for city investment, planned festivals, public-space upgrades, and venue-renaming context.",
-          url: "https://www.jefaturadegobierno.cdmx.gob.mx/"
-        },
-        {
-          name: "Mexico City official visitor guide",
-          checked: "2026-03-16",
-          desc: "Used for neighbourhood descriptions, transport guidance, LOCATEL tourist support, and altitude context.",
-          url: "https://mexicocity.cdmx.gob.mx/?lang=en"
-        },
-        {
-          name: "UK FCDO — Mexico travel advice",
-          checked: "2026-03-16",
-          desc: "Used as a supplementary official source for fast-moving safety language, protests, and airport eGate details.",
-          url: "https://www.gov.uk/foreign-travel-advice/mexico"
+          title: "What changes most",
+          body: "Ticket phases, digital ticket rules, fan-zone maps, airport advisories, protest notices, stadium bag rules, and city transport plans.",
+          collapsed: true
         }
+      ],
+      sourcesList: [
+        {name:"FIFA World Cup 2026", checked:"2026-03-16", desc:"Match schedule, ticketing, host city info.", url:"https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026"},
+        {name:"Irish DFA: Mexico travel advice", checked:"2026-03-16", desc:"Entry rules, passport validity, eGates, emergencies.", url:"https://www.ireland.ie/en/dfa/overseas-travel/advice/mexico/"},
+        {name:"DFA Citizen Registration", checked:"2026-03-16", desc:"Register your trip abroad.", url:"https://citizensregistration.dfa.ie/"},
+        {name:"DFA Embassy Directory", checked:"2026-03-16", desc:"Embassy address and phone.", url:"https://www.ireland.ie/en/dfa/embassies/"},
+        {name:"AICM Airport: Metrobus", checked:"2026-03-16", desc:"Airport bus boarding and schedule.", url:"https://www.aicm.com.mx/en/passengers/services/service-providers/transportation/metrobus"},
+        {name:"AICM Airport: Taxis", checked:"2026-03-16", desc:"Authorised airport taxi providers.", url:"https://www.aicm.com.mx/en/passengers/services/service-providers/transportation/taxis"},
+        {name:"Mexico City Government", checked:"2026-03-16", desc:"City investment, festivals, venue updates.", url:"https://www.jefaturadegobierno.cdmx.gob.mx/"},
+        {name:"CDMX Official Visitor Guide", checked:"2026-03-16", desc:"Neighbourhoods, transport, LOCATEL, altitude.", url:"https://mexicocity.cdmx.gob.mx/?lang=en"},
+        {name:"UK FCDO: Mexico advice", checked:"2026-03-16", desc:"Safety, protests, airport eGate details.", url:"https://www.gov.uk/foreign-travel-advice/mexico"}
       ]
     }
   }
@@ -490,6 +622,18 @@ function makeEl(tag, cls, html){
   return el;
 }
 
+function renderCollapsibleCard(card){
+  const el = makeEl('div', 'card' + (card.collapsed ? ' collapsed' : ''));
+  const h3 = makeEl('h3', null, `<span>${card.title}</span><span class="chevron">›</span>`);
+  const body = makeEl('div', 'card-body', `<p>${card.body}</p>`);
+  el.appendChild(h3);
+  el.appendChild(body);
+  h3.addEventListener('click', () => {
+    el.classList.toggle('collapsed');
+  });
+  return el;
+}
+
 function renderPage(pageId, content){
   const section = makeEl('section','page section');
   section.id = `page-${pageId}`;
@@ -499,16 +643,37 @@ function renderPage(pageId, content){
   section.appendChild(title);
 
   (content.cards || []).forEach(card => {
-    const el = makeEl('div','card',`<h3>${card.title}</h3><p>${card.body}</p>`);
-    section.appendChild(el);
+    section.appendChild(renderCollapsibleCard(card));
   });
 
-  if (content.neighborhoodCards){
-    const wrap = makeEl('div','list');
-    content.neighborhoodCards.forEach(card => {
-      wrap.appendChild(makeEl('div','card',`<h3>${card.title}</h3><p>${card.body}</p>`));
+  if (content.neighborhoods){
+    const grid = makeEl('div','hood-grid');
+    content.neighborhoods.forEach(n => {
+      const card = makeEl('div','hood-card',
+        `<div class="hood-name">${n.name}</div><div class="hood-vibe">${n.vibe}</div><div class="hood-desc">${n.desc}</div>`);
+      grid.appendChild(card);
     });
-    section.appendChild(wrap);
+    section.appendChild(grid);
+  }
+
+  if (content.foods){
+    const grid = makeEl('div','food-grid');
+    content.foods.forEach(f => {
+      const item = makeEl('div','food-item',
+        `<div class="food-emoji">${f.emoji}</div><div class="food-info"><div class="food-name">${f.name}</div><div class="food-desc">${f.desc}</div></div>`);
+      grid.appendChild(item);
+    });
+    section.appendChild(grid);
+  }
+
+  if (content.phrases){
+    const grid = makeEl('div','phrase-grid');
+    content.phrases.forEach(p => {
+      const row = makeEl('div','phrase-row',
+        `<div class="es">${p.es}</div><div class="en">${p.en}</div>`);
+      grid.appendChild(row);
+    });
+    section.appendChild(grid);
   }
 
   if (content.route){
@@ -522,56 +687,53 @@ function renderPage(pageId, content){
   }
 
   if (content.checklistTitle){
-    section.appendChild(makeEl('div','section-title',`<h2 style="font-size:18px">${content.checklistTitle}</h2><div class="hint"></div>`));
+    section.appendChild(makeEl('div','section-title',`<h2 style="font-size:18px">${content.checklistTitle}</h2>`));
     const ul = makeEl('ul','checklist');
     (content.checklist || []).forEach(item => {
-      const li = makeEl('li',null,`<span class="dot">✓</span><span>${item}</span>`);
-      ul.appendChild(li);
+      ul.appendChild(makeEl('li',null,`<span class="dot">✓</span><span>${item}</span>`));
     });
     section.appendChild(ul);
   }
 
-  if (content.extras){
-    const row = makeEl('div','pill-row');
-    content.extras.forEach(extra => {
-      const box = makeEl('div','card');
-      box.innerHTML = `<h3>${extra.label}</h3><p>${extra.text}</p>`;
-      section.appendChild(box);
+  if (content.actions){
+    const row = makeEl('div','action-row');
+    content.actions.forEach(a => {
+      const btn = makeEl('a','action-btn',`<span class="icon">${a.icon}</span><span>${a.label}</span>`);
+      btn.href = a.url;
+      btn.target = "_blank";
+      btn.rel = "noopener";
+      row.appendChild(btn);
     });
+    section.appendChild(row);
   }
 
   if (content.contacts){
     const wrap = makeEl('div','list');
+    section.appendChild(makeEl('div','section-title',`<h2 style="font-size:18px">Emergency contacts</h2>`));
     content.contacts.forEach(c => {
-      const el = makeEl('div','card',`<h3>${c.name}</h3><p><strong>${c.value}</strong><br>${c.note}</p>`);
+      const el = makeEl('div','contact-card',
+        `<div class="contact-name">${c.name}</div><div class="contact-value">${c.value}</div><div class="contact-note">${c.note}</div>`);
       wrap.appendChild(el);
     });
     section.appendChild(wrap);
   }
 
   if (content.callout){
-    const c = makeEl('div','callout',`<strong>${content.callout.title}</strong><div class="sub" style="color:#dce7ff">${content.callout.body}</div>`);
-    section.appendChild(c);
+    section.appendChild(makeEl('div','callout',`<strong>${content.callout.title}</strong><div class="sub" style="color:#dce7ff">${content.callout.body}</div>`));
   }
 
-  if (content.codeTemplate){
-    const wrap = makeEl('div','card update-box',`<h3>Edit these lines to refresh the app</h3><p>All time-sensitive copy in this file is intentionally centralized in <strong>GUIDE_DATA</strong>.</p>`);
-    wrap.appendChild(makeEl('code','code',content.codeTemplate));
-    section.appendChild(wrap);
-  }
-
-  if (content.sources){
-    section.appendChild(makeEl('div','section-title',`<h2 style="font-size:18px">${content.sourcesTitle}</h2><div class="hint">Official + high-trust sources</div>`));
+  if (content.sourcesList){
+    section.appendChild(makeEl('div','section-title',`<h2 style="font-size:18px">Source log</h2>`));
     const sources = makeEl('div','sources');
-    content.sources.forEach(s => {
+    content.sourcesList.forEach(s => {
       const item = makeEl('div','source');
       item.innerHTML = `
         <div class="top">
           <div class="name">${s.name}</div>
-          <div class="stamp">checked ${s.checked}</div>
+          <div class="stamp">${s.checked}</div>
         </div>
         <div class="desc">${s.desc}</div>
-        <div style="margin-top:8px"><a href="${s.url}" target="_blank" rel="noopener">Open source ↗</a></div>
+        <div style="margin-top:8px"><a href="${s.url}" target="_blank" rel="noopener">Open ↗</a></div>
       `;
       sources.appendChild(item);
     });
@@ -587,7 +749,8 @@ function render(){
 
   GUIDE_DATA.tabs.forEach((tab, i) => {
     pagesRoot.appendChild(renderPage(tab.id, GUIDE_DATA.pages[tab.id]));
-    const btn = makeEl('button','tab' + (i===0 ? ' active' : ''),tab.label);
+    const btn = makeEl('button','tab' + (i===0 ? ' active' : ''),
+      `<span class="tab-icon">${tab.icon}</span><span>${tab.label}</span>`);
     btn.type = "button";
     btn.dataset.target = tab.id;
     btn.addEventListener('click',()=>activateTab(tab.id));
@@ -611,9 +774,31 @@ function setupSearch(){
   const input = document.getElementById('searchInput');
   input.addEventListener('input', e => {
     const q = e.target.value.trim().toLowerCase();
-    document.querySelectorAll('.page.active .card, .page.active .callout, .page.active .checklist li, .page.active .source').forEach(el => {
+    if(q){
+      // Find the tab that has the most matches
+      let bestTab = null, bestCount = 0;
+      GUIDE_DATA.tabs.forEach(tab => {
+        const page = document.getElementById(`page-${tab.id}`);
+        if(!page) return;
+        const items = page.querySelectorAll('.card, .callout, .checklist li, .source, .food-item, .phrase-row, .hood-card, .contact-card');
+        let count = 0;
+        items.forEach(el => {
+          const match = el.textContent.toLowerCase().includes(q);
+          if(match) count++;
+        });
+        if(count > bestCount){ bestCount = count; bestTab = tab.id; }
+      });
+      if(bestTab) activateTab(bestTab);
+    }
+    const activePage = document.querySelector('.page.active');
+    if(!activePage) return;
+    activePage.querySelectorAll('.card, .callout, .checklist li, .source, .food-item, .phrase-row, .hood-card, .contact-card').forEach(el => {
       const txt = el.textContent.toLowerCase();
       el.classList.toggle('hidden', q && !txt.includes(q));
+      // Auto-expand matching collapsed cards
+      if(q && txt.includes(q) && el.classList.contains('card') && el.classList.contains('collapsed')){
+        el.classList.remove('collapsed');
+      }
     });
   });
 }
