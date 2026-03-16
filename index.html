@@ -249,7 +249,7 @@
   }
   .nav-chevron:active{background:rgba(255,255,255,.1);color:white}
   .tab{
-    flex:0 0 auto;text-align:center;padding:10px 10px;border-radius:20px;
+    flex:0 0 auto;text-align:center;padding:10px 10px;border-radius:12px;
     font-size:11px;font-weight:700;cursor:pointer;
     display:flex;flex-direction:column;align-items:center;gap:3px;min-width:52px;
     transition:all .2s;
@@ -259,7 +259,8 @@
     box-shadow:0 4px 16px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.15), inset 0 -1px 0 rgba(0,0,0,.1);
     backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
   }
-  .tab .tab-icon{font-size:18px}
+  .tab .tab-icon{width:20px;height:20px;display:block}
+  .tab .tab-icon svg{width:20px;height:20px;fill:currentColor}
   .tab.active{
     background:linear-gradient(165deg,rgba(114,168,255,.35),rgba(80,140,255,.15));
     color:white;
@@ -273,6 +274,18 @@
     color:#90a0c6;font-size:12px;line-height:1.5;padding:10px 18px 110px
   }
   .hidden{display:none !important}
+
+  /* Changelog */
+  .log-entry{
+    padding:14px;border-radius:18px;
+    background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);
+    margin-bottom:10px;position:relative;
+    border-left:3px solid rgba(114,168,255,.4);
+  }
+  .log-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+  .log-date{font-size:12px;color:var(--blue);font-weight:600;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  .log-title{font-size:15px;font-weight:700}
+  .log-body{font-size:13px;color:var(--muted);line-height:1.45;margin-top:6px}
 
   /* Scrollbar hide for nav */
   #bottomNav::-webkit-scrollbar{display:none}
@@ -295,9 +308,9 @@
 </div>
 
 <nav class="bottom-nav">
-  <div class="nav-chevron" onclick="document.getElementById('bottomNav').scrollBy({left:-120,behavior:'smooth'})">‹</div>
+  <div class="nav-chevron" onclick="document.getElementById('bottomNav').scrollTo({left:0,behavior:'smooth'})">‹</div>
   <div id="bottomNav" style="display:flex;gap:4px;overflow-x:auto;flex:1;-ms-overflow-style:none;scrollbar-width:none"></div>
-  <div class="nav-chevron" onclick="document.getElementById('bottomNav').scrollBy({left:120,behavior:'smooth'})">›</div>
+  <div class="nav-chevron" onclick="var n=document.getElementById('bottomNav');n.scrollTo({left:n.scrollWidth,behavior:'smooth'})">›</div>
 </nav>
 
 <script>
@@ -308,16 +321,17 @@ const GUIDE_DATA = {
   },
 
   tabs: [
-    { id: "home", label: "Home", icon: "🏠" },
-    { id: "match", label: "Match", icon: "⚽" },
-    { id: "travel", label: "Travel", icon: "✈️" },
-    { id: "stay", label: "Stay", icon: "🏨" },
-    { id: "eat", label: "Eat", icon: "🌮" },
-    { id: "transport", label: "Transport", icon: "🚇" },
-    { id: "explore", label: "Explore", icon: "🗿" },
-    { id: "safety", label: "Safety", icon: "🛡️" },
-    { id: "spanish", label: "Spanish", icon: "🗣️" },
-    { id: "sources", label: "Sources", icon: "📋" }
+    { id: "home", label: "Home", icon: '<svg viewBox="0 0 24 24"><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/></svg>' },
+    { id: "match", label: "Match", icon: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2a10 10 0 0 1 0 20 10 10 0 0 1 0-20zm0 2.5L9.5 7.5 6 7l-.5 3.5L8 13l-1 3.5 3 2 3-2-1-3.5 2.5-2.5L15 7l-3.5.5z" fill-opacity=".15"/><polygon points="12,4.5 9.5,7.5 11,8.5 13,8.5 14.5,7.5"/><polygon points="6,7 5.5,10.5 8,9.5 8,7.5"/><polygon points="18,7 18.5,10.5 16,9.5 16,7.5"/><polygon points="7,13 6,16.5 9,15 8.5,12.5"/><polygon points="17,13 18,16.5 15,15 15.5,12.5"/></svg>' },
+    { id: "travel", label: "Travel", icon: '<svg viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5A1.5 1.5 0 0 0 11.5 2 1.5 1.5 0 0 0 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>' },
+    { id: "stay", label: "Stay", icon: '<svg viewBox="0 0 24 24"><path d="M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-8v7H3V5H1v15h2v-3h18v3h2V10a4 4 0 0 0-4-4z"/></svg>' },
+    { id: "eat", label: "Eat", icon: '<svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>' },
+    { id: "transport", label: "Transport", icon: '<svg viewBox="0 0 24 24"><path d="M12 2c-4 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19L6 20.5v.5h2l2-2h4l2 2h2v-.5L16.5 19c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-4-4-8-4zM7.5 17c-.83 0-1.5-.67-1.5-1.5S6.67 14 7.5 14s1.5.67 1.5 1.5S8.33 17 7.5 17zm9 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM18 11H6V6h12v5z"/></svg>' },
+    { id: "explore", label: "Explore", icon: '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1.27 15.97L7 14.24l1.27-3.71 3.73-1.27L15.73 13l-1.27 3.73-3.73 1.24zM12 13a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg>' },
+    { id: "safety", label: "Safety", icon: '<svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>' },
+    { id: "spanish", label: "Spanish", icon: '<svg viewBox="0 0 24 24"><path d="M12.87 15.07l-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/></svg>' },
+    { id: "sources", label: "Sources", icon: '<svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>' },
+    { id: "changelog", label: "Log", icon: '<svg viewBox="0 0 24 24"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7a6.99 6.99 0 0 1-4.95-2.05l-1.41 1.41A8.96 8.96 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>' }
   ],
 
   pages: {
@@ -733,6 +747,22 @@ const GUIDE_DATA = {
         {name:"CDMX Official Visitor Guide", checked:"2026-03-16", desc:"Neighbourhoods, transport, LOCATEL, altitude.", url:"https://mexicocity.cdmx.gob.mx/?lang=en"},
         {name:"UK FCDO: Mexico advice", checked:"2026-03-16", desc:"Safety, protests, airport eGate details.", url:"https://www.gov.uk/foreign-travel-advice/mexico"}
       ]
+    },
+
+    changelog: {
+      title: "Changelog",
+      hint: "",
+      logEntries: [
+        {date:"2026-03-16", time:"14:42", title:"Fact-check corrections", body:"Independent review panel verified 39 claims. Fixed 4 errors: passport validity rule (Mexico requires validity for duration of stay, not 6 months; 6-month rule is eGate-specific only), LHR-MEX flight time corrected from 11h to 12h, removed defunct EU ODR platform reference (shut down July 2025, replaced with CCPC/ECC-Net), stadium capacity updated from 83,000 to 87,500 post-renovation."},
+        {date:"2026-03-16", time:"14:30", title:"Hero image added", body:"AI-generated panoramic image of Estadio Azteca at sunset with Irish and Mexican fans added to Home screen. Compressed to 258KB JPEG. Social preview (OG/Twitter Card) meta tags added with 1200x630 formatted image for WhatsApp, iMessage, Slack, LinkedIn sharing."},
+        {date:"2026-03-16", time:"14:16", title:"Hero moved to Home tab only", body:"The hero card with match headline, stats grid and search bar was pinned above all tabs, eating screen space. Moved to render only on the Home tab so other sections get full viewport."},
+        {date:"2026-03-16", time:"14:10", title:"Nav bar improvements", body:"Tab buttons restyled with glassmorphic frosted blur. Added left/right chevrons with tap-to-scroll for discoverability. Fat-finger friendly 36x48px tap targets. Fixed white overscroll at bottom of page."},
+        {date:"2026-03-16", time:"14:07", title:"Transport section added", body:"New Transport tab covering stadium routes (Metro + Tren Ligero), Uber, Metro system, taxi safety warnings, Metrobus, walking, and post-match exit strategy. Broken Match Schedule FIFA link fixed."},
+        {date:"2026-03-16", time:"13:55", title:"Booking strategy section", body:"Stay tab expanded with comprehensive booking advice: Booking.com recommended for EU consumer protections, Airbnb safety guidance (20+ reviews, 4.5+ ratings), FIFA official Accommodation Bureau, scam warnings (4,300+ fake domains), and booking checklist."},
+        {date:"2026-03-16", time:"13:40", title:"Ireland vs Mexico headline", body:"Hero updated to lead with the matchup: Ireland vs Mexico at Estadio Azteca, Thursday 11 June 2026. Stats grid updated to show match day, venue and capacity."},
+        {date:"2026-03-16", time:"13:30", title:"Major content expansion", body:"Expanded from 6 to 9 tabs. Added: Stay (4 neighbourhoods), Eat (8 must-try dishes), Explore (sights, day trips, markets, nightlife), Spanish (18 essential phrases), Sources. All cards made collapsible. Action buttons added throughout. Search now auto-navigates to matching tab."},
+        {date:"2026-03-16", time:"13:10", title:"Initial launch", body:"First version published to mex.kluxy.app. GitHub Pages with custom domain via Cloudflare DNS. 6-tab guide covering Home, Match, Travel, City, Safety, and Update sections."}
+      ]
     }
   }
 };
@@ -883,6 +913,16 @@ function renderPage(pageId, content){
     section.appendChild(sources);
   }
 
+  if (content.logEntries){
+    const wrap = makeEl('div','list');
+    content.logEntries.forEach(e => {
+      const entry = makeEl('div','log-entry',
+        `<div class="log-meta"><div class="log-date">${e.date} ${e.time}</div></div><div class="log-title">${e.title}</div><div class="log-body">${e.body}</div>`);
+      wrap.appendChild(entry);
+    });
+    section.appendChild(wrap);
+  }
+
   return section;
 }
 
@@ -893,7 +933,7 @@ function render(){
   GUIDE_DATA.tabs.forEach((tab, i) => {
     pagesRoot.appendChild(renderPage(tab.id, GUIDE_DATA.pages[tab.id]));
     const btn = makeEl('button','tab' + (i===0 ? ' active' : ''),
-      `<span class="tab-icon">${tab.icon}</span><span>${tab.label}</span>`);
+      `<span class="tab-icon">${tab.icon}</span>${tab.label}`);
     btn.type = "button";
     btn.dataset.target = tab.id;
     btn.addEventListener('click',()=>activateTab(tab.id));
