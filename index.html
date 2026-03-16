@@ -92,6 +92,7 @@
     position:absolute;inset:auto -40px -60px auto;
     width:180px;height:180px;border-radius:999px;
     background:radial-gradient(circle, rgba(114,168,255,.28), transparent 65%);
+    pointer-events:none;
   }
   .eyebrow{
     display:inline-flex;gap:8px;align-items:center;
@@ -117,7 +118,7 @@
   .mini-highlight .value{color:#72a8ff;font-size:16px}
   .search-wrap{
     margin-top:14px;display:flex;gap:6px;align-items:center;
-    width:100%;
+    width:100%;position:relative;z-index:1;
   }
   .search{
     width:100%;padding:12px 14px;border-radius:16px;box-sizing:border-box;
