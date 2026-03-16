@@ -214,17 +214,25 @@
     background:rgba(16,24,46,.92);
     border:1px solid rgba(255,255,255,.1);
     backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-    display:flex;justify-content:space-between;gap:4px;z-index:20;
+    display:flex;align-items:center;gap:4px;z-index:20;
     box-shadow:0 18px 40px rgba(0,0,0,.35);
-    overflow-x:auto;
+  }
+  .nav-chevron{
+    flex:0 0 auto;display:grid;place-items:center;width:24px;
+    color:rgba(255,255,255,.4);font-size:16px;font-weight:700;pointer-events:none;
   }
   .tab{
-    flex:0 0 auto;text-align:center;padding:10px 10px;border-radius:14px;color:#c8d6f5;font-size:11px;font-weight:700;cursor:pointer;
+    flex:0 0 auto;text-align:center;padding:10px 10px;border-radius:14px;
+    font-size:11px;font-weight:700;cursor:pointer;
     display:flex;flex-direction:column;align-items:center;gap:3px;min-width:48px;
     transition:all .2s;
+    color:#1a1a2e;
+    background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(240,242,250,.85));
+    border:1px solid rgba(255,255,255,.3);
+    box-shadow:0 2px 8px rgba(0,0,0,.12), inset 0 1px 0 rgba(255,255,255,.5);
   }
   .tab .tab-icon{font-size:16px}
-  .tab.active{background:rgba(114,168,255,.18);color:white}
+  .tab.active{background:linear-gradient(180deg,rgba(114,168,255,.95),rgba(80,140,255,.85));color:white;border-color:rgba(114,168,255,.6);box-shadow:0 2px 12px rgba(114,168,255,.35), inset 0 1px 0 rgba(255,255,255,.25)}
   .page{display:none}
   .page.active{display:block}
   .hero-note{margin-top:12px;font-size:12px;color:#cbd7f4}
@@ -234,8 +242,7 @@
   .hidden{display:none !important}
 
   /* Scrollbar hide for nav */
-  .bottom-nav::-webkit-scrollbar{display:none}
-  .bottom-nav{-ms-overflow-style:none;scrollbar-width:none}
+  #bottomNav::-webkit-scrollbar{display:none}
 </style>
 </head>
 <body>
@@ -268,7 +275,11 @@
   </div>
 </div>
 
-<nav class="bottom-nav" id="bottomNav"></nav>
+<nav class="bottom-nav">
+  <div class="nav-chevron">‹</div>
+  <div id="bottomNav" style="display:flex;gap:4px;overflow-x:auto;flex:1;-ms-overflow-style:none;scrollbar-width:none"></div>
+  <div class="nav-chevron">›</div>
+</nav>
 
 <script>
 const GUIDE_DATA = {
@@ -283,6 +294,7 @@ const GUIDE_DATA = {
     { id: "travel", label: "Travel", icon: "✈️" },
     { id: "stay", label: "Stay", icon: "🏨" },
     { id: "eat", label: "Eat", icon: "🌮" },
+    { id: "transport", label: "Transport", icon: "🚇" },
     { id: "explore", label: "Explore", icon: "🗿" },
     { id: "safety", label: "Safety", icon: "🛡️" },
     { id: "spanish", label: "Spanish", icon: "🗣️" },
@@ -321,7 +333,7 @@ const GUIDE_DATA = {
       actions: [
         {icon:"🎫", label:"FIFA Tickets", url:"https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/tickets"},
         {icon:"📋", label:"DFA Register", url:"https://citizensregistration.dfa.ie/"},
-        {icon:"🏟️", label:"Match Schedule", url:"https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/match-centre"},
+        {icon:"🏟️", label:"Match Schedule", url:"https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/scores-fixtures"},
         {icon:"🇮🇪", label:"DFA Mexico Advice", url:"https://www.ireland.ie/en/dfa/overseas-travel/advice/mexico/"}
       ],
       callout: {
@@ -509,6 +521,60 @@ const GUIDE_DATA = {
         {emoji:"🍲", name:"Pozole", desc:"Hearty hominy soup. Traditional, filling, deeply satisfying."},
         {emoji:"🌽", name:"Esquites / Elote", desc:"Corn in a cup or on the cob with mayo, chilli, lime. Street classic."},
         {emoji:"🥑", name:"Guacamole", desc:"Freshly made at your table in many restaurants. Nothing like home."}
+      ]
+    },
+
+    transport: {
+      title: "Getting around",
+      hint: "Stadium + city transport",
+      cards: [
+        {
+          title: "To/from Estadio Azteca",
+          body: "The stadium is on Calzada de Tlalpan in Coyoacan, south of the centre. Best matchday route: Metro to Tasquena station, then light rail (Tren Ligero) to the stadium stop (approx. 15 min). Road congestion around the venue on match days will be severe. Plan to arrive 2-3 hours early.",
+          collapsed: false
+        },
+        {
+          title: "Uber and ride-hailing",
+          body: "Uber works well in CDMX and is the easiest option for visitors. Cashless, no language barrier, GPS-tracked. Expect surge pricing and difficult pick-ups post-match. Pre-plan your pick-up zone and walk away from the stadium crowd before requesting.",
+          collapsed: false
+        },
+        {
+          title: "Metro system",
+          body: "CDMX Metro is huge, cheap (5 pesos per ride) and efficient. Buy a rechargeable card (15 pesos) at any station. Colour-coded lines with icon-based stations make it navigable without Spanish. Avoid rush hour (7-10am, 5-8pm). Keep valuables secure.",
+          collapsed: false
+        },
+        {
+          title: "Taxis: use caution",
+          body: "Never use unlicensed street taxis. UK and Irish government advice warns that unlicensed drivers have robbed and assaulted passengers. Use only \"sitio\" taxis from authorised ranks, hotel-ordered taxis, or app-based rides. At the airport, use only authorised prepaid taxi booths in the arrivals hall.",
+          collapsed: true
+        },
+        {
+          title: "Metrobus",
+          body: "A bus rapid transit system with dedicated lanes. Useful for airport connections (Terminal 1 Gate 7, Terminal 2 Gate 2) and cross-city routes. Same rechargeable card as Metro. Runs 04:30-00:00 Mon-Sat, 05:00-00:00 Sun/holidays.",
+          collapsed: true
+        },
+        {
+          title: "Walking",
+          body: "Roma, Condesa, Polanco and Centro are all very walkable by day. Stick to main streets after dark. CDMX is a walking city in the right neighbourhoods.",
+          collapsed: true
+        },
+        {
+          title: "Post-match strategy",
+          body: "After the final whistle, 83,000 people exit at once. Walk with the crowd toward public transport, keep your group together, and head to a well-lit busy area before requesting a ride. Do not stand alone on dark side streets. The light rail and Metro will be packed but moving.",
+          collapsed: true
+        }
+      ],
+      checklistTitle: "Transport rules",
+      checklist: [
+        "Metro + Tren Ligero is the most reliable matchday route to the stadium.",
+        "Allow 2-3 hours before kick-off for travel and entry.",
+        "Uber for everything else. Cashless, tracked, no haggling.",
+        "Never take unlicensed street taxis. Ever.",
+        "Post-match: walk away from the crowd, then request a ride."
+      ],
+      actions: [
+        {icon:"🗺️", label:"Stadium on Maps", url:"https://maps.apple.com/?q=Estadio+Azteca+Mexico+City"},
+        {icon:"🚇", label:"CDMX Metro Map", url:"https://www.metro.cdmx.gob.mx/storage/app/media/red/plano_red19.pdf"}
       ]
     },
 
