@@ -4,11 +4,11 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Ireland vs Mexico — World Cup 2026 Guide</title>
-<meta name="description" content="The practical guide for Irish supporters heading to Mexico City for the World Cup 2026. Estadio Azteca, 11 June 2026." />
+<meta name="description" content="The practical guide for Irish supporters heading to Mexico City for the World Cup 2026. Estadio Azteca, 24 June 2026." />
 
 <!-- Open Graph (WhatsApp, Facebook, iMessage, Slack, LinkedIn) -->
 <meta property="og:title" content="Ireland vs Mexico — World Cup 2026 Guide" />
-<meta property="og:description" content="If Ireland qualifies, they face Mexico at Estadio Azteca on 11 June 2026. Everything Irish fans need to know about Mexico City." />
+<meta property="og:description" content="If Ireland qualifies, they face Mexico at Estadio Azteca on 24 June 2026. Everything Irish fans need to know about Mexico City." />
 <meta property="og:image" content="https://mex.kluxy.app/og-image.jpg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
@@ -19,7 +19,7 @@
 <!-- Twitter / X -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Ireland vs Mexico — World Cup 2026 Guide" />
-<meta name="twitter:description" content="If Ireland qualifies, they face Mexico at Estadio Azteca on 11 June 2026. The complete guide for Irish fans." />
+<meta name="twitter:description" content="If Ireland qualifies, they face Mexico at Estadio Azteca on 24 June 2026. The complete guide for Irish fans." />
 <meta name="twitter:image" content="https://mex.kluxy.app/og-image.jpg" />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚽</text></svg>" />
 <style>
@@ -73,10 +73,16 @@
     overflow:hidden;
     position:relative;
   }
+  .hero-img-wrap{position:relative;overflow:hidden;border-radius:28px 28px 0 0;max-height:220px}
   .hero-img{
-    width:100%;display:block;border-radius:28px 28px 0 0;
+    width:100%;display:block;
     object-fit:cover;max-height:220px;
   }
+  .hero-img-slide{
+    position:absolute;top:0;left:0;width:100%;height:100%;
+    opacity:0;transition:opacity .6s ease;
+  }
+  .hero-img-slide.active{opacity:1;position:relative}
   .hero-content{
     padding:18px 18px 22px;
     position:relative;
@@ -104,6 +110,11 @@
   }
   .mini .label{font-size:11px;color:#b9c6ea}
   .mini .value{font-size:14px;font-weight:700;margin-top:4px}
+  .mini-highlight{
+    background:rgba(114,168,255,.18);border-color:rgba(114,168,255,.35);
+    box-shadow:0 0 12px rgba(114,168,255,.15);
+  }
+  .mini-highlight .value{color:#72a8ff;font-size:16px}
   .search-wrap{
     margin-top:14px;display:flex;gap:6px;align-items:center;
     width:100%;
@@ -131,6 +142,26 @@
   }
   .search-clear:active{background:rgba(255,255,255,.25)}
   .search-input-wrap{flex:1;position:relative}
+  .section-hero{
+    margin:0 0 12px;border-radius:22px;overflow:hidden;position:relative;
+  }
+  .section-hero img{
+    width:100%;display:block;object-fit:cover;max-height:200px;
+  }
+  .section-hero a{display:block;text-decoration:none;position:relative}
+  .section-hero-play{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:48px;height:48px;border-radius:50%;
+    background:rgba(0,0,0,.55);color:#fff;font-size:20px;
+    display:flex;align-items:center;justify-content:center;
+    backdrop-filter:blur(4px);transition:background .2s;
+  }
+  .section-hero a:hover .section-hero-play{background:rgba(114,168,255,.7)}
+  .section-hero-slide{
+    position:absolute;top:0;left:0;width:100%;height:100%;
+    opacity:0;transition:opacity 1.2s ease;
+  }
+  .section-hero-slide.active{opacity:1;position:relative}
   .section{padding:0 16px 16px}
   .section-title{
     display:flex;justify-content:space-between;align-items:flex-end;gap:12px;
@@ -221,15 +252,25 @@
   .phrase-row .en{font-size:13px;color:var(--muted)}
 
   /* Neighbourhood pills */
-  .hood-grid{display:grid;gap:10px;margin-top:12px}
+  .hood-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
   .hood-card{
-    padding:14px;border-radius:18px;
+    padding:14px;border-radius:18px;overflow:hidden;
     background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.025));
     border:1px solid rgba(255,255,255,.08);
+  }
+  .hood-card-link{cursor:pointer;transition:border-color .2s,transform .15s}
+  .hood-card-link:active{transform:scale(.98);border-color:rgba(114,168,255,.4)}
+  .hood-img{
+    width:calc(100% + 28px);margin:-14px -14px 10px;display:block;
+    height:120px;object-fit:cover;
+  }
+  .hood-play{
+    margin-top:8px;font-size:11px;color:var(--blue);font-weight:600;
   }
   .hood-card .hood-name{font-weight:700;font-size:15px;margin-bottom:4px}
   .hood-card .hood-vibe{font-size:12px;color:var(--blue)}
   .hood-card .hood-desc{font-size:13px;color:var(--muted);line-height:1.45;margin-top:6px}
+  @media(max-width:400px){.hood-grid{grid-template-columns:1fr}}
 
   /* Food item */
   .food-grid{display:grid;gap:10px;margin-top:12px}
@@ -362,7 +403,7 @@ const GUIDE_DATA = {
       cards: [
         {
           title: "What's confirmed",
-          body: "Mexico City hosts 5 World Cup matches including the opening game on 11 June 2026. The city has announced transport upgrades, lighting improvements and public-space works around the tournament.",
+          body: "Mexico City hosts 5 World Cup matches. The opening game is 11 June 2026; Ireland vs Mexico is on 24 June. The city has announced transport upgrades, lighting improvements and public-space works around the tournament.",
           collapsed: false
         },
         {
@@ -399,10 +440,11 @@ const GUIDE_DATA = {
     match: {
       title: "Match & stadium",
       hint: "FIFA + CDMX",
+      heroImg: {src:"Estadio Azteca.jpg", alt:"Aerial view of Estadio Azteca, Mexico City", video:"https://www.youtube.com/watch?v=bMyUHlNuwXM"},
       cards: [
         {
           title: "Mexico City fixtures",
-          body: "Opening match 11 June, then 17 June, 24 June, 30 June and 5 July. Exact team pathways outside host-team fixtures can still shift. Re-check before buying flights.",
+          body: "Opening match 11 June, then 17 June, 24 June (Ireland vs Mexico), 30 June and 5 July. Exact team pathways outside host-team fixtures can still shift. Re-check before buying flights.",
           collapsed: false
         },
         {
@@ -481,6 +523,10 @@ const GUIDE_DATA = {
     stay: {
       title: "Where to stay",
       hint: "Neighbourhoods + booking",
+      heroImgs: [
+        {src:"Condesa.jpg", alt:"Tree-lined streets of La Condesa, Mexico City"},
+        {src:"Roma.jpg", alt:"Colorful colonial building in Roma Norte, Mexico City"}
+      ],
       cards: [
         {
           title: "Choosing your base",
@@ -524,7 +570,8 @@ const GUIDE_DATA = {
         }
       ],
       neighborhoods: [
-        {name:"Roma / Condesa", vibe:"Best all-rounder", desc:"Tree-lined streets, excellent restaurants, cafes, bars. Walkable and social. Sweet spot for most fans."},
+        {name:"La Condesa", vibe:"Best all-rounder", desc:"Tree-lined streets, Parque Mexico, art deco architecture, cafes, and bars. Walkable and social.", img:"Condesa.jpg", video:"https://www.youtube.com/watch?v=JZ_3JNgWb4g"},
+        {name:"Roma Norte", vibe:"Creative & vibrant", desc:"Colorful colonial buildings, excellent restaurants, street art, and lively nightlife. Sweet spot for fans.", img:"Roma.jpg", video:"https://www.youtube.com/watch?v=kUGHmHUeta4"},
         {name:"Polanco", vibe:"Premium & polished", desc:"Upscale hotels, shopping, Museo Soumaya. Higher budget but very comfortable. Good museums."},
         {name:"Centro Historico", vibe:"History & atmosphere", desc:"Zocalo, Templo Mayor, Bellas Artes. Incredible by day. Choose hotel micro-location carefully for nights."},
         {name:"Coyoacan", vibe:"Bohemian & artsy", desc:"Frida Kahlo Museum, quieter pace, beautiful plazas. Further from stadium but worth a day visit."}
@@ -549,6 +596,7 @@ const GUIDE_DATA = {
     eat: {
       title: "Food & drink",
       hint: "Must-try list",
+      heroImg: {src:"tacos-al-pastor-1200.jpg", alt:"Tacos al pastor with cilantro, onion, and lime"},
       cards: [
         {
           title: "Street food rules",
@@ -765,7 +813,8 @@ const GUIDE_DATA = {
         {name:"AICM Airport: Taxis", checked:"2026-03-16", desc:"Authorised airport taxi providers.", url:"https://www.aicm.com.mx/en/passengers/services/service-providers/transportation/taxis"},
         {name:"Mexico City Government", checked:"2026-03-16", desc:"City investment, festivals, venue updates.", url:"https://www.jefaturadegobierno.cdmx.gob.mx/"},
         {name:"CDMX Official Visitor Guide", checked:"2026-03-16", desc:"Neighbourhoods, transport, LOCATEL, altitude.", url:"https://mexicocity.cdmx.gob.mx/?lang=en"},
-        {name:"UK FCDO: Mexico advice", checked:"2026-03-16", desc:"Safety, protests, airport eGate details.", url:"https://www.gov.uk/foreign-travel-advice/mexico"}
+        {name:"UK FCDO: Mexico advice", checked:"2026-03-16", desc:"Safety, protests, airport eGate details.", url:"https://www.gov.uk/foreign-travel-advice/mexico"},
+        {name:"RTE Sport: Ireland draw", checked:"2026-03-16", desc:"Ireland may face Mexico, South Africa and South Korea in Group A.", url:"https://www.rte.ie/sport/soccer/2025/1205/1547551-ireland-may-face-mexico-south-africa-and-south-korea/"}
       ]
     },
 
@@ -774,6 +823,7 @@ const GUIDE_DATA = {
       hint: "",
       showViews: true,
       logEntries: [
+        {date:"2026-03-16", time:"16:18", title:"Section hero images and date correction", body:"Added hero photos to Match (Estadio Azteca aerial), Stay (Condesa and Roma alternating crossfade), and Eat (tacos al pastor close-up). Home hero now crossfades between AI-generated match poster and sunset photo every 3.5s. Condesa and Roma neighbourhood cards now side-by-side with images and clickable YouTube walkthrough links. Match date corrected from 11 June to 24 June 2026. RTE source added."},
         {date:"2026-03-16", time:"15:50", title:"Search redesign and soccer ball icon", body:"Search now requires tapping a submit button (paper airplane icon) or pressing Enter instead of filtering on every keystroke. Added a clear (x) button inside the input to reset results. Match tab icon replaced with a proper classic soccer ball SVG with pentagon and hexagon panels."},
         {date:"2026-03-16", time:"15:02", title:"Views counter moved to Log tab", body:"Page views counter relocated from the status bar (visible on all tabs) to the Log tab only, displayed as a card at the top."},
         {date:"2026-03-16", time:"14:58", title:"Live page views counter", body:"Deployed a Cloudflare Worker with KV storage as a serverless page view counter. Every page load increments the count. No third-party analytics, fully self-hosted."},
@@ -787,7 +837,7 @@ const GUIDE_DATA = {
         {date:"2026-03-16", time:"14:16", title:"Hero moved to Home tab only", body:"Hero card with match headline, stats grid and search bar was pinned above all tabs, eating screen space. Moved to render only on the Home tab so other sections get full viewport."},
         {date:"2026-03-16", time:"14:10", title:"Transport section added", body:"New Transport tab covering stadium routes (Metro + Tren Ligero), Uber, Metro system, taxi safety warnings, Metrobus, walking, and post-match exit strategy. Broken Match Schedule FIFA link fixed."},
         {date:"2026-03-16", time:"13:55", title:"Booking strategy section", body:"Stay tab expanded with comprehensive booking advice: Booking.com recommended for EU consumer protections, Airbnb safety guidance, FIFA official Accommodation Bureau, scam warnings (4,300+ fake domains), and booking checklist."},
-        {date:"2026-03-16", time:"13:40", title:"Ireland vs Mexico headline", body:"Hero updated to lead with the matchup: Ireland vs Mexico at Estadio Azteca, Thursday 11 June 2026. Stats grid shows match day, venue and capacity."},
+        {date:"2026-03-16", time:"13:40", title:"Ireland vs Mexico headline", body:"Hero updated to lead with the matchup: Ireland vs Mexico at Estadio Azteca, Wednesday 24 June 2026. Stats grid shows match day, venue and capacity."},
         {date:"2026-03-16", time:"13:30", title:"Major content expansion", body:"Expanded from 6 to 11 tabs. Added: Stay, Eat (8 dishes), Explore (sights, day trips), Transport, Spanish (18 phrases), Sources, Log. All cards made collapsible. Action buttons and search auto-navigation added."},
         {date:"2026-03-16", time:"13:10", title:"Initial launch", body:"First version published to mex.kluxy.app. GitHub Pages with custom domain via Cloudflare DNS."}
       ]
@@ -822,13 +872,16 @@ function renderPage(pageId, content){
     const heroWrap = makeEl('div','hero');
     heroWrap.innerHTML = `
       <div class="glass hero-card">
-        <img class="hero-img" src="hero.jpg" alt="Estadio Azteca at sunset, Irish and Mexican fans filling the stands" />
+        <div class="hero-img-wrap">
+          <div class="hero-img-slide active"><img class="hero-img" src="hero.jpg" alt="Estadio Azteca at sunset, Irish and Mexican fans filling the stands" /></div>
+          <div class="hero-img-slide"><img class="hero-img" src="hero-alt.jpg" alt="Mexico vs Ireland, FIFA World Cup 2026 Group Stage, Estadio Azteca" /></div>
+        </div>
         <div class="hero-content">
           <div class="eyebrow">🇮🇪 Ireland · 🇲🇽 Mexico · ⚽ World Cup 2026</div>
           <h1>Ireland vs Mexico<br>in Mexico City</h1>
-          <div class="sub">If Ireland qualifies, they face Mexico at <strong>Estadio Azteca</strong> on <strong>Thursday 11 June 2026</strong>, the tournament's opening match. Mexico City is the only city in the world to host a World Cup opener for the third time.</div>
+          <div class="sub">If Ireland qualifies, they face Mexico at <strong>Estadio Azteca</strong> on <strong>Wednesday 24 June 2026</strong>. The legendary stadium has hosted two World Cup finals and is the only venue in history to do so.</div>
           <div class="hero-grid">
-            <div class="mini"><div class="label">Match day</div><div class="value">11 Jun</div></div>
+            <div class="mini mini-highlight"><div class="label">Match day</div><div class="value">24 Jun</div></div>
             <div class="mini"><div class="label">Venue</div><div class="value">Azteca</div></div>
             <div class="mini"><div class="label">Capacity</div><div class="value">87,500</div></div>
           </div>
@@ -845,6 +898,38 @@ function renderPage(pageId, content){
     section.appendChild(heroWrap);
   }
 
+  // Single hero image for section
+  if (content.heroImg){
+    const wrap = makeEl('div','section-hero');
+    if(content.heroImg.video){
+      wrap.innerHTML = `<a href="${content.heroImg.video}" target="_blank" rel="noopener"><img src="${content.heroImg.src}" alt="${content.heroImg.alt}" /><div class="section-hero-play">&#9654;</div></a>`;
+      wrap.style.cursor = 'pointer';
+    } else {
+      wrap.innerHTML = `<img src="${content.heroImg.src}" alt="${content.heroImg.alt}" />`;
+    }
+    section.appendChild(wrap);
+  }
+
+  // Alternating fade slideshow for section (e.g. Stay)
+  if (content.heroImgs){
+    const wrap = makeEl('div','section-hero');
+    content.heroImgs.forEach((img, i) => {
+      const slide = makeEl('div', 'section-hero-slide' + (i === 0 ? ' active' : ''));
+      slide.innerHTML = `<img src="${img.src}" alt="${img.alt}" />`;
+      wrap.appendChild(slide);
+    });
+    section.appendChild(wrap);
+    const slides = wrap.querySelectorAll('.section-hero-slide');
+    if(slides.length > 1){
+      let cur = 0;
+      setInterval(() => {
+        slides[cur].classList.remove('active');
+        cur = (cur + 1) % slides.length;
+        slides[cur].classList.add('active');
+      }, 5000);
+    }
+  }
+
   const title = makeEl('div','section-title',
     `<h2>${content.title}</h2><div class="hint">${content.hint || ""}</div>`);
   section.appendChild(title);
@@ -856,8 +941,11 @@ function renderPage(pageId, content){
   if (content.neighborhoods){
     const grid = makeEl('div','hood-grid');
     content.neighborhoods.forEach(n => {
-      const card = makeEl('div','hood-card',
-        `<div class="hood-name">${n.name}</div><div class="hood-vibe">${n.vibe}</div><div class="hood-desc">${n.desc}</div>`);
+      const imgHtml = n.img ? `<img class="hood-img" src="${n.img}" alt="${n.name}" />` : '';
+      const playIcon = n.video ? '<div class="hood-play">&#9654; Watch walkthrough</div>' : '';
+      const card = makeEl('div','hood-card' + (n.video ? ' hood-card-link' : ''),
+        `${imgHtml}<div class="hood-name">${n.name}</div><div class="hood-vibe">${n.vibe}</div><div class="hood-desc">${n.desc}</div>${playIcon}`);
+      if(n.video) card.addEventListener('click', () => window.open(n.video, '_blank'));
       grid.appendChild(card);
     });
     section.appendChild(grid);
@@ -1040,6 +1128,18 @@ function setupSearch(){
 
 render();
 setupSearch();
+
+// Hero image crossfade (3.5s interval, 0.6s transition set in CSS)
+(function(){
+  const slides = document.querySelectorAll('.hero-img-slide');
+  if(slides.length < 2) return;
+  let cur = 0;
+  setInterval(() => {
+    slides[cur].classList.remove('active');
+    cur = (cur + 1) % slides.length;
+    slides[cur].classList.add('active');
+  }, 3500);
+})();
 
 fetch('https://mex-counter.victordelrosal.workers.dev')
   .then(r=>r.json())
