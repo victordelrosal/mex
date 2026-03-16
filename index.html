@@ -414,7 +414,7 @@ const GUIDE_DATA = {
 
     stay: {
       title: "Where to stay",
-      hint: "Neighbourhoods",
+      hint: "Neighbourhoods + booking",
       cards: [
         {
           title: "Choosing your base",
@@ -422,13 +422,38 @@ const GUIDE_DATA = {
           collapsed: false
         },
         {
-          title: "Altitude warning",
-          body: "CDMX sits at 2,240m. If you fly in and drink heavily on day one, you'll feel it. Go easier than you think on your first evening.",
+          title: "Booking strategy",
+          body: "Book early with free cancellation. Hotel rates near key venues are already 30-50% above normal for June/July 2026 and will only rise. CDMX is adding 3,300 new hotel rooms for the World Cup, but demand will far exceed supply. Book now, adjust later.",
+          collapsed: false
+        },
+        {
+          title: "Use Booking.com (recommended)",
+          body: "For Irish and EU travellers, Booking.com offers the strongest protections: free cancellation on most properties, EU consumer law coverage on price transparency, formal dispute resolution, and escalation via the European Online Dispute Resolution (ODR) platform. If anything goes wrong, you have a real third party fighting your corner. Always pay by credit card for chargeback rights.",
+          collapsed: false
+        },
+        {
+          title: "Why not book directly?",
+          body: "Direct hotel booking can work for major chains (Marriott, Hilton, Hyatt) where you trust the brand. But for smaller or independent hotels in Mexico, you lose third-party mediation if disputes arise: overbooking, misrepresentation, hidden surcharges. During a mega-event, the risk of scams and price gouging is real. A platform gives you recourse.",
           collapsed: true
         },
         {
-          title: "Booking strategy",
-          body: "Book early. Major tournament demand will spike prices. Mix of hotels and Airbnb available in all areas. Hotels offer more security for first-timers.",
+          title: "Airbnb: good but careful",
+          body: "CDMX hotels will not have enough rooms, so Airbnb is a real option. Mexico City now requires hosts to register and carry liability insurance (2024 regulations). Stick to properties with 20+ reviews and 4.5+ ratings. Only book and pay through the Airbnb platform. Watch for bait-and-switch scams (nice photos, different property on arrival). Roma, Condesa and Polanco have the most reliable Airbnb stock.",
+          collapsed: true
+        },
+        {
+          title: "FIFA official accommodation",
+          body: "FIFA has an official Accommodation Bureau (hotels.fifa26-accommodation.com) with curated hotel inventory across all 16 host cities. Legitimate but likely premium-priced. On Location (FIFA's hospitality partner) sells ticket-inclusive packages with premium hotels.",
+          collapsed: true
+        },
+        {
+          title: "Scam alert: fake booking sites",
+          body: "Over 4,300 suspicious domains have been registered using World Cup host city names. Red flags: cheap domain extensions (.shop, .online, .store), prices too good to be true, requests to pay by wire transfer. Only use official FIFA channels or established platforms. Double-check URLs before entering payment details. Never pay via bank transfer or payment apps for accommodation.",
+          collapsed: true
+        },
+        {
+          title: "Altitude warning",
+          body: "CDMX sits at 2,240m. If you fly in and drink heavily on day one, you'll feel it. Go easier than you think on your first evening.",
           collapsed: true
         }
       ],
@@ -438,9 +463,20 @@ const GUIDE_DATA = {
         {name:"Centro Historico", vibe:"History & atmosphere", desc:"Zocalo, Templo Mayor, Bellas Artes. Incredible by day. Choose hotel micro-location carefully for nights."},
         {name:"Coyoacan", vibe:"Bohemian & artsy", desc:"Frida Kahlo Museum, quieter pace, beautiful plazas. Further from stadium but worth a day visit."}
       ],
+      checklistTitle: "Booking checklist",
+      checklist: [
+        "Always select free cancellation. Rebook if better rates appear later.",
+        "Use Booking.com or Expedia for EU consumer protections and dispute resolution.",
+        "Pay by credit card. Never wire transfer or payment apps.",
+        "Compare the same property across platforms and the hotel's own site.",
+        "For Airbnb, only book 20+ reviews, 4.5+ ratings, in Roma/Condesa/Polanco.",
+        "Arrive at least the day before the match to absorb delays."
+      ],
       actions: [
-        {icon:"🗺️", label:"Roma on Maps", url:"https://maps.apple.com/?q=Roma+Norte+Mexico+City"},
-        {icon:"🗺️", label:"Condesa on Maps", url:"https://maps.apple.com/?q=Condesa+Mexico+City"}
+        {icon:"🏨", label:"Booking.com", url:"https://www.booking.com/searchresults.html?ss=Mexico+City"},
+        {icon:"🏠", label:"Airbnb CDMX", url:"https://www.airbnb.com/s/Mexico-City/homes"},
+        {icon:"⚽", label:"FIFA Hotels", url:"https://hotels.fifa26-accommodation.com/"},
+        {icon:"🗺️", label:"Roma on Maps", url:"https://maps.apple.com/?q=Roma+Norte+Mexico+City"}
       ]
     },
 
