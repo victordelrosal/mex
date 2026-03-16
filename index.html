@@ -73,16 +73,16 @@
     overflow:hidden;
     position:relative;
   }
-  .hero-img-wrap{position:relative;overflow:hidden;border-radius:28px 28px 0 0;max-height:220px}
+  .hero-img-wrap{position:relative;overflow:hidden;border-radius:28px 28px 0 0;height:220px}
   .hero-img{
-    width:100%;display:block;
-    object-fit:cover;max-height:220px;
+    width:100%;height:220px;display:block;
+    object-fit:cover;
   }
   .hero-img-slide{
     position:absolute;top:0;left:0;width:100%;height:100%;
     opacity:0;transition:opacity .6s ease;
   }
-  .hero-img-slide.active{opacity:1;position:relative}
+  .hero-img-slide.active{opacity:1}
   .hero-content{
     padding:18px 18px 22px;
     position:relative;
@@ -146,7 +146,7 @@
     margin:0 0 12px;border-radius:22px;overflow:hidden;position:relative;
   }
   .section-hero img{
-    width:100%;display:block;object-fit:cover;max-height:200px;
+    width:100%;height:200px;display:block;object-fit:cover;
   }
   .section-hero a{display:block;text-decoration:none;position:relative}
   .section-hero-play{
@@ -161,7 +161,8 @@
     position:absolute;top:0;left:0;width:100%;height:100%;
     opacity:0;transition:opacity 1.2s ease;
   }
-  .section-hero-slide.active{opacity:1;position:relative}
+  .section-hero-slide.active{opacity:1}
+  .section-hero:has(.section-hero-slide){height:200px}
   .section{padding:0 16px 16px}
   .section-title{
     display:flex;justify-content:space-between;align-items:flex-end;gap:12px;
